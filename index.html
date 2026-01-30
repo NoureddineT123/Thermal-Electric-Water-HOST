@@ -96,9 +96,9 @@
             height: 100%;
             z-index: 1;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1), transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.1), transparent 50%);
-            animation: liquidMove 20s ease-in-out infinite;
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.08), transparent 50%);
+            animation: liquidMove 30s ease-in-out infinite;
             filter: blur(60px);
             will-change: transform;
         }
@@ -108,7 +108,7 @@
                 transform: scale(1) rotate(0deg);
             }
             50% {
-                transform: scale(1.05) rotate(3deg);
+                transform: scale(1.03) rotate(2deg);
             }
         }
 
@@ -127,7 +127,7 @@
             backdrop-filter: blur(30px) saturate(200%);
             border: 1px solid var(--glass-border);
             box-shadow: 0 20px 60px -10px var(--card-shadow);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
         }
@@ -139,9 +139,9 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(96, 165, 250, 0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(96, 165, 250, 0.05), transparent);
             transform: rotate(0deg);
-            transition: transform 0.6s;
+            transition: transform 0.8s;
         }
 
         .glass-card-ultra:hover::before {
@@ -149,29 +149,29 @@
         }
 
         .glass-card-ultra:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 30px 80px -10px var(--card-shadow);
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 25px 70px -10px var(--card-shadow);
         }
 
         /* --- Hero Logo with Energy Field --- */
         .hero-logo-container {
             position: relative;
-            animation: floatLogo 6s ease-in-out infinite;
+            animation: floatLogo 8s ease-in-out infinite;
             will-change: transform;
         }
 
         .hero-logo {
-            filter: drop-shadow(0 0 30px rgba(96, 165, 250, 0.6));
-            animation: pulse-glow 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.4));
+            animation: pulse-glow 4s ease-in-out infinite;
             will-change: filter;
         }
 
         @keyframes pulse-glow {
             0%, 100% {
-                filter: drop-shadow(0 0 30px rgba(96, 165, 250, 0.6));
+                filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.4));
             }
             50% {
-                filter: drop-shadow(0 0 50px rgba(96, 165, 250, 0.9));
+                filter: drop-shadow(0 0 35px rgba(96, 165, 250, 0.6));
             }
         }
 
@@ -214,19 +214,19 @@
                 transform: translateY(0px); 
             }
             50% {
-                transform: translateY(-25px);
+                transform: translateY(-15px);
             }
         }
 
         /* --- Magnetic Button Effect --- */
         .magnetic-btn {
             position: relative;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.3s ease;
             overflow: hidden;
         }
 
         .magnetic-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         /* --- Text Animations --- */
@@ -398,26 +398,31 @@
 
     <nav class="fixed w-full z-50 px-4 py-4 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center glass-ultra rounded-2xl px-8 py-4">
-            <div class="flex items-center gap-3 stagger-item">
-                <img src="./img/TEG_LogoOnly.png" alt="Logo" class="h-10 w-auto transition-transform duration-300 hover:rotate-12 hover:scale-110">
-                <span class="font-bold text-xl tracking-tight" style="color: var(--text-primary);">Thermal Electric</span>
-            </div>
-            
-            <div class="hidden md:flex space-x-8 font-semibold items-center" style="color: var(--text-secondary);">
-                <a href="#how-it-works" class="hover:text-blue-600 transition-all duration-300 hover:scale-110 stagger-item">Technology</a>
-                <a href="#benefits" class="hover:text-blue-600 transition-all duration-300 hover:scale-110 stagger-item">Efficiency</a>
-                <a href="#stats" class="hover:text-blue-600 transition-all duration-300 hover:scale-110 stagger-item">Impact</a>
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-3 stagger-item">
+                    <img src="./img/TEG_LogoOnly.png" alt="Logo" class="h-10 w-auto transition-transform duration-300 hover:rotate-12 hover:scale-110">
+                    <span class="font-bold text-xl tracking-tight" style="color: var(--text-primary);">Thermal Electric</span>
+                </div>
                 
+                <div class="hidden md:flex space-x-6 font-semibold items-center" style="color: var(--text-secondary);">
+                    <a href="#how-it-works" class="hover:text-blue-600 transition-all duration-300 stagger-item">Technology</a>
+                    <a href="#benefits" class="hover:text-blue-600 transition-all duration-300 stagger-item">Efficiency</a>
+                    <a href="#stats" class="hover:text-blue-600 transition-all duration-300 stagger-item">Impact</a>
+                    <a href="#download" class="hover:text-blue-600 transition-all duration-300 stagger-item">Download</a>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
                 <!-- Dark Mode Toggle -->
                 <div class="dark-mode-toggle stagger-item" id="darkModeToggle" title="Toggle dark mode">
                     <i class="fa-solid fa-sun absolute left-2 top-1/2 -translate-y-1/2 text-xs text-yellow-500"></i>
                     <i class="fa-solid fa-moon absolute right-2 top-1/2 -translate-y-1/2 text-xs text-purple-400"></i>
                 </div>
-            </div>
 
-            <button class="magnetic-btn bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-6 py-2.5 rounded-xl font-bold transition shadow-lg shadow-blue-200 stagger-item relative">
-                <span class="relative z-10">Pre-Order</span>
-            </button>
+                <button class="magnetic-btn bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-6 py-2.5 rounded-xl font-bold transition shadow-lg shadow-blue-200 stagger-item relative">
+                    <span class="relative z-10">Pre-Order</span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -576,6 +581,47 @@
         </div>
     </section>
 
+    <!-- Download Section -->
+    <section id="download" class="py-32 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="glass-ultra rounded-3xl p-12 md:p-20 reveal-up text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">Get the <span class="text-gradient-animated">Thermal Electric App</span></h2>
+                    <p class="text-xl mb-10" style="color: var(--text-secondary);">
+                        Control your water heating system from anywhere. Monitor energy usage, adjust temperature settings, and optimize efficiency—all from your smartphone.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <a href="#YOUR_ANDROID_LINK_HERE" class="magnetic-btn bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl shadow-green-200 transition-all duration-300 flex items-center gap-3 group">
+                            <i class="fa-brands fa-android text-2xl transition-transform duration-300 group-hover:scale-110"></i>
+                            <span class="relative z-10">Download for Android</span>
+                        </a>
+                        
+                        <div class="text-sm" style="color: var(--text-secondary);">
+                            <i class="fa-solid fa-apple text-lg mr-2"></i>
+                            iOS version coming soon
+                        </div>
+                    </div>
+                    
+                    <div class="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+                        <div class="stagger-item">
+                            <div class="text-3xl font-bold text-gradient-animated mb-2">4.9★</div>
+                            <div class="text-sm" style="color: var(--text-secondary);">App Rating</div>
+                        </div>
+                        <div class="stagger-item" style="animation-delay: 0.1s;">
+                            <div class="text-3xl font-bold text-gradient-animated mb-2">50K+</div>
+                            <div class="text-sm" style="color: var(--text-secondary);">Downloads</div>
+                        </div>
+                        <div class="stagger-item" style="animation-delay: 0.2s;">
+                            <div class="text-3xl font-bold text-gradient-animated mb-2">24/7</div>
+                            <div class="text-sm" style="color: var(--text-secondary);">Support</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="py-12 border-t backdrop-blur-md mt-12 relative z-10" style="border-color: var(--glass-border); background: var(--glass-bg);">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-2 opacity-60">
@@ -692,7 +738,7 @@
             counterObserver.observe(el);
         });
 
-        // 3D Tilt Effect (optimized)
+        // 3D Tilt Effect (more subtle)
         document.querySelectorAll('.tilt-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -702,10 +748,10 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = (y - centerY) / 15;
-                const rotateY = (centerX - x) / 15;
+                const rotateX = (y - centerY) / 25;
+                const rotateY = (centerX - x) / 25;
                 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
             });
             
             card.addEventListener('mouseleave', () => {
@@ -713,14 +759,14 @@
             });
         });
 
-        // Magnetic Button Effect
+        // Magnetic Button Effect (more subtle)
         document.querySelectorAll('.magnetic-btn').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
                 
-                btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) scale(1.05)`;
+                btn.style.transform = `translate(${x * 0.08}px, ${y * 0.08}px) scale(1.02)`;
             });
             
             btn.addEventListener('mouseleave', () => {
