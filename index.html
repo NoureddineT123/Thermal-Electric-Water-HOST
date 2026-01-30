@@ -3,119 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thermal Electric Water | Sustainable Heating</title>
+    <title>Thermal Electric Water | The Future of Heat</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;700;900&display=swap');
         
+        :root {
+            --brand-blue: #3b82f6;
+            --brand-light: #7dd3fc;
+            --deep-navy: #0f172a;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f9ff;
-            color: #1e3a8a;
+            font-family: 'Outfit', sans-serif;
+            background-color: #ffffff;
+            color: var(--deep-navy);
+            overflow-x: hidden;
         }
 
-        .hero-gradient {
-            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+        /* High-End Scroll Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--brand-blue), var(--brand-light));
+            width: 0%;
+            z-index: 100;
+            transition: width 0.1s ease-out;
         }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 1.5rem;
+        /* Parallax Background Effect */
+        .hero-visual {
+            background: radial-gradient(circle at 50% 50%, #f0f9ff 0%, #ffffff 100%);
+            position: relative;
         }
 
-        .logo-glow {
-            filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.4));
+        /* Animated Logo Container */
+        .floating-logo {
+            filter: drop-shadow(0 20px 50px rgba(59, 130, 246, 0.3));
+            animation: float 6s ease-in-out infinite;
         }
 
-        /* Simple Loading Animation Mockup */
-        @keyframes ripple {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.5); opacity: 0; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
         }
-        .ripple {
+
+        /* Glassmorphism Cards */
+        .feature-card {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: white;
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Kinetic Typography Effect */
+        .text-outline {
+            -webkit-text-stroke: 1px var(--brand-blue);
+            color: transparent;
+        }
+
+        .cta-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button::after {
+            content: '';
             position: absolute;
-            border: 2px solid #7dd3fc;
-            border-radius: 50%;
-            animation: ripple 2s infinite;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255,255,255,0.2);
+            transform: translate(-50%, -50%) rotate(45deg) translateY(100%);
+            transition: all 0.6s ease;
+        }
+
+        .cta-button:hover::after {
+            transform: translate(-50%, -50%) rotate(45deg) translateY(-100%);
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <nav class="fixed w-full z-50 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass px-6 py-3">
-            <img src="./img/TEG_LogoOnly.png" alt="TEW Logo" class="h-10">
-            <div class="hidden md:flex space-x-8 font-medium text-blue-900">
-                <a href="#how-it-works" class="hover:text-blue-500 transition">How it Works</a>
-                <a href="#benefits" class="hover:text-blue-500 transition">Benefits</a>
-                <a href="#contact" class="hover:text-blue-500 transition">Contact</a>
+    <div id="progress-bar"></div>
+
+    <nav class="fixed w-full z-50 transition-all duration-500 py-6" id="navbar">
+        <div class="max-w-7xl mx-auto px-10 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="./img/TEG_LogoOnly.png" alt="TEW" class="h-12 w-12 hover:rotate-12 transition-transform">
+                <span class="font-black text-2xl tracking-tighter uppercase">Thermal Electric</span>
             </div>
-            <button class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition">
-                Pre-Order
-            </button>
+            <div class="hidden md:flex items-center space-x-12 font-medium">
+                <a href="#vision" class="hover:text-blue-500 transition">Vision</a>
+                <a href="#tech" class="hover:text-blue-500 transition">Technology</a>
+                <button class="cta-button bg-blue-600 text-white px-8 py-3 rounded-full font-bold shadow-xl">Get Access</button>
+            </div>
         </div>
     </nav>
 
-    <header class="relative min-h-screen flex items-center pt-20 hero-gradient overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-            <div>
-                <img src="./img/TEG_FullLogoWithText.png" alt="Thermal Electric Water" class="w-80 mb-6 logo-glow">
-                <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
-                    Heat Water <span class="text-blue-500 text-6xl">On Demand.</span>
+    <section class="min-h-screen flex items-center pt-20 hero-visual overflow-hidden px-10">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+            <div class="z-10">
+                <h2 class="text-blue-500 font-bold tracking-widest uppercase mb-4 reveal">Innovation in every drop</h2>
+                <h1 class="text-7xl md:text-8xl font-black leading-none mb-8 reveal">
+                    WATER <br> <span class="text-outline">REDEFINED.</span>
                 </h1>
-                <p class="text-xl text-blue-700 mb-8 leading-relaxed">
-                    Stop wasting energy keeping tanks hot. Our Thermal Electric technology heats your water the second you turn on the tap, saving up to 40% on utility bills.
+                <p class="text-2xl text-slate-500 mb-10 max-w-lg leading-relaxed reveal">
+                    We aren't just heating water. We're optimizing the planet's most precious resource through instant-thermal induction.
                 </p>
-                <div class="flex space-x-4">
-                    <a href="#how-it-works" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-blue-200 hover:-translate-y-1 transition">Get Started</a>
-                    <a href="#" class="border-2 border-blue-200 px-8 py-4 rounded-xl font-bold hover:bg-blue-50 transition">View Specs</a>
+                <div class="flex items-center space-x-6 reveal">
+                    <button class="cta-button bg-slate-900 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl">Start Saving</button>
+                    <div class="flex -space-x-3">
+                        <div class="w-12 h-12 rounded-full border-4 border-white bg-blue-100 flex items-center justify-center text-xs font-bold">4.9</div>
+                        <span class="pl-6 text-sm font-semibold text-slate-400">Trusted by 2k+ Early Adopters</span>
+                    </div>
                 </div>
             </div>
-            <div class="relative flex justify-center">
-                <div class="relative w-80 h-80 flex items-center justify-center">
-                    <div class="ripple w-full h-full"></div>
-                    <div class="ripple w-full h-full" style="animation-delay: 0.5s"></div>
-                    <img src="./img/TEG_LogoOnly.png" alt="Interactive Logo" class="relative z-10 w-64 animate-bounce" style="animation-duration: 3s;">
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <section id="how-it-works" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4">A New Way to Save Energy</h2>
-                <p class="text-blue-600">Smart. Instant. Sustainable.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="p-8 glass bg-blue-50 border-none text-center">
-                    <div class="text-4xl mb-4">⚡</div>
-                    <h3 class="text-xl font-bold mb-2">Instantaneous</h3>
-                    <p>Proprietary thermal coils reach temperature in milliseconds.</p>
-                </div>
-                <div class="p-8 glass bg-blue-50 border-none text-center">
-                    <div class="text-4xl mb-4">🌿</div>
-                    <h3 class="text-xl font-bold mb-2">Eco-Friendly</h3>
-                    <p>Zero standby heat loss means a smaller carbon footprint.</p>
-                </div>
-                <div class="p-8 glass bg-blue-50 border-none text-center">
-                    <div class="text-4xl mb-4">📉</div>
-                    <h3 class="text-xl font-bold mb-2">Cost Effective</h3>
-                    <p>Pay only for the water you actually use. No tank, no waste.</p>
+            <div class="relative flex justify-center reveal">
+                <div class="relative w-full max-w-2xl">
+                    <div class="absolute inset-0 bg-blue-400/10 blur-[120px] rounded-full"></div>
+                    <img src="./img/TEG_LogoOnly.png" alt="Thermal Electric Icon" class="floating-logo w-full h-auto object-contain">
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-12 border-t border-blue-100">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-            <img src="./img/TEG_LogoOnly.png" alt="TEW" class="h-8 mb-4 md:mb-0 opacity-50">
-            <p class="text-blue-400 text-sm">© 2026 Thermal Electric Water. All rights reserved.</p>
+    <section id="vision" class="py-32 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-10">
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="feature-card p-12 rounded-3xl reveal">
+                    <div class="text-5xl text-blue-500 mb-8"><i class="fa-solid fa-bolt-lightning"></i></div>
+                    <h3 class="text-3xl font-black mb-4">Pure Speed</h3>
+                    <p class="text-lg text-slate-500 leading-relaxed">0 to 120°F in under 1.2 seconds. No tanks. No waiting. Pure efficiency.</p>
+                </div>
+                <div class="feature-card p-12 rounded-3xl bg-blue-600 text-white reveal shadow-2xl shadow-blue-200" style="transition-delay: 0.2s">
+                    <div class="text-5xl mb-8"><i class="fa-solid fa-droplet"></i></div>
+                    <h3 class="text-3xl font-black mb-4">Eco-Logic</h3>
+                    <p class="text-lg text-blue-100 leading-relaxed">Eliminate standby energy loss and reduce your carbon footprint by 35% instantly.</p>
+                </div>
+                <div class="feature-card p-12 rounded-3xl reveal" style="transition-delay: 0.4s">
+                    <div class="text-5xl text-blue-500 mb-8"><i class="fa-solid fa-microchip"></i></div>
+                    <h3 class="text-3xl font-black mb-4">Smart Flow</h3>
+                    <p class="text-lg text-slate-500 leading-relaxed">AI-driven sensors modulate power usage based on real-time water flow rates.</p>
+                </div>
+            </div>
         </div>
-    </footer>
+    </section>
 
+    <section class="py-32 text-center">
+        <div class="max-w-4xl mx-auto px-10">
+            <h2 class="text-5xl md:text-6xl font-black mb-12 reveal">Ready to experience the evolution?</h2>
+            <button class="cta-button bg-blue-600 text-white px-16 py-6 rounded-full font-black text-2xl shadow-3xl hover:scale-110 transition">RESERVE NOW</button>
+        </div>
+    </section>
+
+    <script>
+        // Progress Bar Logic
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+
+            // Navbar Blur on Scroll
+            const nav = document.getElementById("navbar");
+            if (winScroll > 50) {
+                nav.classList.add("bg-white/80", "backdrop-blur-xl", "shadow-sm", "py-4");
+                nav.classList.remove("py-6");
+            } else {
+                nav.classList.remove("bg-white/80", "backdrop-blur-xl", "shadow-sm", "py-4");
+                nav.classList.add("py-6");
+            }
+        };
+
+        // Scroll Reveal Intersection Observer
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
 </body>
 </html>
