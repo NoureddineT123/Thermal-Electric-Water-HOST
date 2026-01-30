@@ -15,40 +15,51 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: #0a0e27;
-            color: #ffffff;
-            overflow-x: hidden;
-            cursor: none;
+        :root {
+            --bg-primary: #f0f9ff;
+            --bg-secondary: #ffffff;
+            --text-primary: #1e3a8a;
+            --text-secondary: #64748b;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #a855f7;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --card-shadow: rgba(59, 130, 246, 0.15);
         }
 
-        /* --- Custom Cursor --- */
+        .dark-mode {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #0f172a;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --glass-bg: rgba(15, 23, 42, 0.4);
+            --glass-border: rgba(148, 163, 184, 0.1);
+            --card-shadow: rgba(59, 130, 246, 0.3);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* --- Custom Cursor (small only) --- */
         .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #60a5fa;
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--accent-blue);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: all 0.1s ease;
+            transition: all 0.15s ease;
             mix-blend-mode: difference;
         }
 
-        .cursor-follower {
-            width: 50px;
-            height: 50px;
-            border: 1px solid rgba(96, 165, 250, 0.3);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.3s cubic-bezier(0.75, -0.5, 0.25, 1.5);
-            mix-blend-mode: difference;
-        }
-
-        /* --- Particle Background --- */
+        /* --- Optimized Particle Background --- */
         .particles {
             position: fixed;
             top: 0;
@@ -57,20 +68,22 @@
             height: 100%;
             z-index: 0;
             overflow: hidden;
+            opacity: 0.6;
         }
 
         .particle {
             position: absolute;
             width: 2px;
             height: 2px;
-            background: rgba(96, 165, 250, 0.6);
+            background: var(--accent-blue);
             border-radius: 50%;
             animation: float linear infinite;
+            will-change: transform;
         }
 
         @keyframes float {
             0% {
-                transform: translateY(100vh) translateX(0) rotate(0deg);
+                transform: translateY(100vh) translateX(0);
                 opacity: 0;
             }
             10% {
@@ -80,7 +93,7 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                transform: translateY(-100vh) translateX(50px);
                 opacity: 0;
             }
         }
@@ -94,44 +107,38 @@
             height: 100%;
             z-index: 1;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15), transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.15), transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.15), transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.1), transparent 50%);
             animation: liquidMove 20s ease-in-out infinite;
             filter: blur(60px);
+            will-change: transform;
         }
 
         @keyframes liquidMove {
             0%, 100% {
                 transform: scale(1) rotate(0deg);
             }
-            33% {
-                transform: scale(1.1) rotate(5deg);
-            }
-            66% {
-                transform: scale(0.9) rotate(-5deg);
+            50% {
+                transform: scale(1.05) rotate(3deg);
             }
         }
 
-        /* --- Glassmorphism 2.0 --- */
+        /* --- Glassmorphism --- */
         .glass-ultra {
-            background: rgba(15, 23, 42, 0.4);
+            background: var(--glass-bg);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            box-shadow: 
-                0 8px 32px 0 rgba(31, 38, 135, 0.2),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 var(--card-shadow);
+            transition: all 0.3s ease;
         }
 
         .glass-card-ultra {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.3));
+            background: var(--glass-bg);
             backdrop-filter: blur(30px) saturate(200%);
-            border: 1px solid rgba(148, 163, 184, 0.15);
-            box-shadow: 
-                0 20px 60px -10px rgba(59, 130, 246, 0.3),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 60px -10px var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
         }
@@ -145,7 +152,7 @@
             height: 200%;
             background: linear-gradient(45deg, transparent, rgba(96, 165, 250, 0.1), transparent);
             transform: rotate(0deg);
-            transition: all 0.6s;
+            transition: transform 0.6s;
         }
 
         .glass-card-ultra:hover::before {
@@ -154,35 +161,28 @@
 
         .glass-card-ultra:hover {
             transform: translateY(-15px) scale(1.03);
-            box-shadow: 
-                0 30px 80px -10px rgba(59, 130, 246, 0.5),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
-            border-color: rgba(96, 165, 250, 0.4);
-        }
-
-        /* --- 3D Tilt Effect --- */
-        .tilt-card {
-            transform-style: preserve-3d;
-            perspective: 1000px;
+            box-shadow: 0 30px 80px -10px var(--card-shadow);
         }
 
         /* --- Hero Logo with Energy Field --- */
         .hero-logo-container {
             position: relative;
             animation: floatLogo 6s ease-in-out infinite;
+            will-change: transform;
         }
 
         .hero-logo {
-            filter: drop-shadow(0 0 30px rgba(96, 165, 250, 0.8));
+            filter: drop-shadow(0 0 30px rgba(96, 165, 250, 0.6));
             animation: pulse-glow 3s ease-in-out infinite;
+            will-change: filter;
         }
 
         @keyframes pulse-glow {
             0%, 100% {
-                filter: drop-shadow(0 0 30px rgba(96, 165, 250, 0.8));
+                filter: drop-shadow(0 0 30px rgba(96, 165, 250, 0.6));
             }
             50% {
-                filter: drop-shadow(0 0 60px rgba(96, 165, 250, 1)) drop-shadow(0 0 90px rgba(59, 130, 246, 0.6));
+                filter: drop-shadow(0 0 50px rgba(96, 165, 250, 0.9));
             }
         }
 
@@ -196,6 +196,7 @@
             border-radius: 50%;
             transform: translate(-50%, -50%);
             animation: expandRing 3s ease-out infinite;
+            will-change: transform, opacity;
         }
 
         .energy-ring:nth-child(2) {
@@ -221,13 +222,10 @@
 
         @keyframes floatLogo {
             0%, 100% { 
-                transform: translateY(0px) rotateZ(0deg); 
+                transform: translateY(0px); 
             }
-            25% {
-                transform: translateY(-30px) rotateZ(2deg);
-            }
-            75% {
-                transform: translateY(-30px) rotateZ(-2deg);
+            50% {
+                transform: translateY(-25px);
             }
         }
 
@@ -235,37 +233,21 @@
         .magnetic-btn {
             position: relative;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
         }
 
         .magnetic-btn:hover {
             transform: scale(1.05);
         }
 
-        .magnetic-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .magnetic-btn:hover::after {
-            width: 300px;
-            height: 300px;
-        }
-
         /* --- Text Animations --- */
         .text-gradient-animated {
-            background: linear-gradient(90deg, #60a5fa, #a78bfa, #ec4899, #60a5fa);
+            background: linear-gradient(90deg, #3b82f6, #a855f7, #ec4899, #3b82f6);
             background-size: 300% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradientFlow 4s linear infinite;
+            will-change: background-position;
         }
 
         @keyframes gradientFlow {
@@ -296,119 +278,23 @@
             transform: scale(1);
         }
 
-        /* --- Stat Counter Animation --- */
-        .stat-number {
-            font-variant-numeric: tabular-nums;
-        }
-
-        /* --- Icon Orbit Animation --- */
-        .icon-orbit {
-            animation: orbit 20s linear infinite;
-        }
-
-        @keyframes orbit {
-            0% { transform: rotate(0deg) translateX(50px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
-        }
-
-        /* --- Holographic Effect --- */
-        .holographic {
-            position: relative;
-            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(147, 51, 234, 0.1));
-            animation: holoShift 3s ease-in-out infinite;
-        }
-
-        @keyframes holoShift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        /* --- Data Stream Effect --- */
-        .data-stream {
-            position: absolute;
-            width: 2px;
-            height: 100px;
-            background: linear-gradient(180deg, transparent, #60a5fa, transparent);
-            animation: streamDown 3s linear infinite;
-        }
-
-        @keyframes streamDown {
-            0% {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
         /* --- Scroll Progress Bar --- */
         .progress-bar {
             position: fixed;
             top: 0;
             left: 0;
             height: 3px;
-            background: linear-gradient(90deg, #60a5fa, #a78bfa, #ec4899);
+            background: linear-gradient(90deg, #3b82f6, #a855f7, #ec4899);
             z-index: 9999;
             transform-origin: left;
             transition: transform 0.1s ease-out;
-        }
-
-        /* --- Intersection Glow --- */
-        .glow-on-hover {
-            transition: all 0.3s ease;
-        }
-
-        .glow-on-hover:hover {
-            box-shadow: 0 0 30px rgba(96, 165, 250, 0.6), 0 0 60px rgba(96, 165, 250, 0.4);
-        }
-
-        /* --- Wave Background --- */
-        .wave-bg {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 30vh;
-            z-index: 1;
-            opacity: 0.1;
-        }
-
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, #60a5fa, transparent);
-            animation: wave 10s linear infinite;
-        }
-
-        .wave:nth-child(2) {
-            animation-delay: -5s;
-            opacity: 0.5;
-        }
-
-        @keyframes wave {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+            will-change: transform;
         }
 
         /* --- Feature Icon Hover --- */
         .feature-icon-container {
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: transform;
         }
 
         .feature-icon-container:hover {
@@ -432,56 +318,125 @@
             }
         }
 
+        /* --- Dark Mode Toggle --- */
+        .dark-mode-toggle {
+            width: 60px;
+            height: 30px;
+            background: var(--glass-bg);
+            border-radius: 30px;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode-toggle::before {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            top: 3px;
+            left: 3px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.4);
+        }
+
+        .dark-mode .dark-mode-toggle::before {
+            left: 33px;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+        }
+
+        /* --- 3D Tilt Effect --- */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        /* --- Glow Effect --- */
+        .glow-on-hover {
+            transition: all 0.3s ease;
+        }
+
+        .glow-on-hover:hover {
+            box-shadow: 0 0 30px var(--card-shadow);
+        }
+
+        /* --- Stat Counter --- */
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* --- Holographic Badge --- */
+        .holographic {
+            position: relative;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(147, 51, 234, 0.1));
+            animation: holoShift 3s ease-in-out infinite;
+        }
+
+        @keyframes holoShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
         /* --- Responsive adjustments --- */
         @media (max-width: 768px) {
-            .cursor, .cursor-follower {
+            .cursor {
                 display: none;
+            }
+        }
+
+        /* --- Performance optimization --- */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Custom Cursor -->
+    <!-- Custom Cursor (small only) -->
     <div class="cursor"></div>
-    <div class="cursor-follower"></div>
 
     <!-- Scroll Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
-    <!-- Particle Background -->
+    <!-- Particle Background (reduced count for performance) -->
     <div class="particles" id="particles"></div>
 
     <!-- Liquid Background -->
     <div class="liquid-bg"></div>
 
-    <!-- Wave Background -->
-    <div class="wave-bg">
-        <div class="wave"></div>
-        <div class="wave"></div>
-    </div>
-
-    <!-- Data Streams -->
-    <div class="data-stream" style="left: 10%; animation-delay: 0s;"></div>
-    <div class="data-stream" style="left: 30%; animation-delay: 1s;"></div>
-    <div class="data-stream" style="left: 50%; animation-delay: 2s;"></div>
-    <div class="data-stream" style="left: 70%; animation-delay: 0.5s;"></div>
-    <div class="data-stream" style="left: 90%; animation-delay: 1.5s;"></div>
-
     <nav class="fixed w-full z-50 px-4 py-4 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center glass-ultra rounded-2xl px-8 py-4">
             <div class="flex items-center gap-3 stagger-item">
                 <img src="./img/TEG_LogoOnly.png" alt="Logo" class="h-10 w-auto transition-transform duration-300 hover:rotate-12 hover:scale-110">
-                <span class="font-bold text-xl tracking-tight text-white">Thermal Electric</span>
+                <span class="font-bold text-xl tracking-tight" style="color: var(--text-primary);">Thermal Electric</span>
             </div>
             
-            <div class="hidden md:flex space-x-8 font-semibold text-slate-300">
-                <a href="#how-it-works" class="hover:text-blue-400 transition-all duration-300 hover:scale-110 stagger-item">Technology</a>
-                <a href="#benefits" class="hover:text-blue-400 transition-all duration-300 hover:scale-110 stagger-item">Efficiency</a>
-                <a href="#stats" class="hover:text-blue-400 transition-all duration-300 hover:scale-110 stagger-item">Impact</a>
+            <div class="hidden md:flex space-x-8 font-semibold items-center" style="color: var(--text-secondary);">
+                <a href="#how-it-works" class="hover:text-blue-600 transition-all duration-300 hover:scale-110 stagger-item">Technology</a>
+                <a href="#benefits" class="hover:text-blue-600 transition-all duration-300 hover:scale-110 stagger-item">Efficiency</a>
+                <a href="#stats" class="hover:text-blue-600 transition-all duration-300 hover:scale-110 stagger-item">Impact</a>
+                
+                <!-- Dark Mode Toggle -->
+                <div class="dark-mode-toggle stagger-item" id="darkModeToggle" title="Toggle dark mode">
+                    <i class="fa-solid fa-sun absolute left-2 top-1/2 -translate-y-1/2 text-xs text-yellow-500"></i>
+                    <i class="fa-solid fa-moon absolute right-2 top-1/2 -translate-y-1/2 text-xs text-purple-400"></i>
+                </div>
             </div>
 
-            <button class="magnetic-btn bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white px-6 py-2.5 rounded-xl font-bold transition shadow-lg shadow-blue-500/50 stagger-item relative overflow-hidden">
+            <button class="magnetic-btn bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white px-6 py-2.5 rounded-xl font-bold transition shadow-lg shadow-blue-200 stagger-item relative">
                 <span class="relative z-10">Pre-Order</span>
             </button>
         </div>
@@ -491,29 +446,28 @@
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
             
             <div class="order-2 lg:order-1 reveal-up">
-                <div class="inline-block px-4 py-1.5 rounded-full glass-ultra text-blue-400 font-bold text-sm mb-6 border border-blue-500/30 holographic">
+                <div class="inline-block px-4 py-1.5 rounded-full glass-ultra text-blue-600 font-bold text-sm mb-6 border border-blue-200 holographic">
                     🚀 The Future of Water Heating
                 </div>
-                <h1 class="text-6xl md:text-7xl font-extrabold leading-tight mb-6 text-white">
+                <h1 class="text-6xl md:text-7xl font-extrabold leading-tight mb-6" style="color: var(--text-primary);">
                     Hot Water, <br>
                     <span class="text-gradient-animated">Precisely When Needed.</span>
                 </h1>
-                <p class="text-xl text-slate-300 mb-10 leading-relaxed max-w-lg">
-                    Experience the first <strong class="text-blue-400">Thermal Electric</strong> system. Save energy by heating water instantly at the source. No tanks. No waste. Just heat.
+                <p class="text-xl mb-10 leading-relaxed max-w-lg" style="color: var(--text-secondary);">
+                    Experience the first <strong class="text-blue-600">Thermal Electric</strong> system. Save energy by heating water instantly at the source. No tanks. No waste. Just heat.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#how-it-works" class="magnetic-btn bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-xl font-bold text-lg text-center shadow-2xl shadow-blue-500/50 hover:shadow-blue-500/80 transition-all duration-300 relative overflow-hidden group">
+                    <a href="#how-it-works" class="magnetic-btn bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-xl font-bold text-lg text-center shadow-2xl shadow-blue-200 hover:shadow-blue-300 transition-all duration-300 relative group">
                         <span class="relative z-10">Discover the Tech</span>
-                        <div class="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </a>
-                    <a href="#" class="magnetic-btn glass-ultra px-8 py-4 rounded-xl font-bold text-lg text-blue-300 text-center hover:bg-slate-800/50 transition-all duration-300 border border-blue-500/30">
+                    <a href="#" class="magnetic-btn glass-ultra px-8 py-4 rounded-xl font-bold text-lg text-center transition-all duration-300 border border-blue-200" style="color: var(--text-primary);">
                         View Specs
                     </a>
                 </div>
             </div>
 
             <div class="order-1 lg:order-2 flex justify-center relative reveal-scale" style="transition-delay: 0.3s;">
-                <div class="absolute inset-0 bg-blue-500 opacity-20 blur-[120px] rounded-full transform scale-75 animate-pulse"></div>
+                <div class="absolute inset-0 bg-blue-400 opacity-20 blur-[120px] rounded-full transform scale-75 animate-pulse"></div>
                 
                 <div class="hero-logo-container relative z-10 w-full max-w-md md:max-w-lg lg:max-w-xl">
                     <div class="energy-ring"></div>
@@ -531,15 +485,15 @@
             <div class="glass-ultra rounded-3xl p-12 grid md:grid-cols-3 gap-10">
                 <div class="text-center reveal-up stagger-item">
                     <div class="text-5xl md:text-6xl font-extrabold text-gradient-animated mb-3 stat-number" data-target="40">0</div>
-                    <div class="text-slate-300 text-lg">% Energy Saved</div>
+                    <div class="text-lg" style="color: var(--text-secondary);">% Energy Saved</div>
                 </div>
                 <div class="text-center reveal-up stagger-item" style="transition-delay: 0.2s;">
                     <div class="text-5xl md:text-6xl font-extrabold text-gradient-animated mb-3 stat-number" data-target="100">0</div>
-                    <div class="text-slate-300 text-lg">Milliseconds Heat-up</div>
+                    <div class="text-lg" style="color: var(--text-secondary);">Milliseconds Heat-up</div>
                 </div>
                 <div class="text-center reveal-up stagger-item" style="transition-delay: 0.4s;">
                     <div class="text-5xl md:text-6xl font-extrabold text-gradient-animated mb-3 stat-number" data-target="0">0</div>
-                    <div class="text-slate-300 text-lg">Standby Loss</div>
+                    <div class="text-lg" style="color: var(--text-secondary);">Standby Loss</div>
                 </div>
             </div>
         </div>
@@ -548,38 +502,38 @@
     <section id="how-it-works" class="py-32 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20 reveal-up">
-                <h2 class="text-5xl md:text-6xl font-bold mb-6 text-white">Why Thermal Electric?</h2>
-                <p class="text-xl text-slate-300 max-w-2xl mx-auto">Old heaters waste energy keeping water hot when you aren't home. We changed the rules.</p>
+                <h2 class="text-5xl md:text-6xl font-bold mb-6" style="color: var(--text-primary);">Why Thermal Electric?</h2>
+                <p class="text-xl max-w-2xl mx-auto" style="color: var(--text-secondary);">Old heaters waste energy keeping water hot when you aren't home. We changed the rules.</p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-10">
                 <div class="glass-card-ultra tilt-card p-10 rounded-3xl text-center reveal-up glow-on-hover" style="transition-delay: 0.1s;">
-                    <div class="feature-icon-container w-24 h-24 mx-auto bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-full flex items-center justify-center mb-8 border border-blue-500/30">
-                        <i class="fa-solid fa-bolt text-6xl text-blue-400"></i>
+                    <div class="feature-icon-container w-24 h-24 mx-auto bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-8 border border-blue-200 dark:border-blue-500/30">
+                        <i class="fa-solid fa-bolt text-6xl text-blue-500"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 text-white">Instant Heat</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        High-conductivity thermal coils heat water to your exact temperature in <strong class="text-blue-400">milliseconds</strong>.
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">Instant Heat</h3>
+                    <p class="leading-relaxed" style="color: var(--text-secondary);">
+                        High-conductivity thermal coils heat water to your exact temperature in <strong class="text-blue-600">milliseconds</strong>.
                     </p>
                 </div>
 
                 <div class="glass-card-ultra tilt-card p-10 rounded-3xl text-center reveal-up glow-on-hover" style="transition-delay: 0.2s;">
-                    <div class="feature-icon-container w-24 h-24 mx-auto bg-gradient-to-br from-green-500/20 to-emerald-600/20 rounded-full flex items-center justify-center mb-8 border border-green-500/30">
-                        <i class="fa-solid fa-leaf text-6xl text-green-400"></i>
+                    <div class="feature-icon-container w-24 h-24 mx-auto bg-green-50 dark:bg-green-900/20 rounded-full flex items-center justify-center mb-8 border border-green-200 dark:border-green-500/30">
+                        <i class="fa-solid fa-leaf text-6xl text-green-500"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 text-white">100% Eco-Friendly</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        Zero standby heat loss. Reduce your home's energy carbon footprint by up to <strong class="text-green-400">40%</strong> immediately.
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">100% Eco-Friendly</h3>
+                    <p class="leading-relaxed" style="color: var(--text-secondary);">
+                        Zero standby heat loss. Reduce your home's energy carbon footprint by up to <strong class="text-green-600">40%</strong> immediately.
                     </p>
                 </div>
 
                 <div class="glass-card-ultra tilt-card p-10 rounded-3xl text-center reveal-up glow-on-hover" style="transition-delay: 0.3s;">
-                    <div class="feature-icon-container w-24 h-24 mx-auto bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-full flex items-center justify-center mb-8 border border-cyan-500/30">
-                        <i class="fa-solid fa-chart-line text-6xl text-cyan-400"></i>
+                    <div class="feature-icon-container w-24 h-24 mx-auto bg-cyan-50 dark:bg-cyan-900/20 rounded-full flex items-center justify-center mb-8 border border-cyan-200 dark:border-cyan-500/30">
+                        <i class="fa-solid fa-chart-line text-6xl text-cyan-500"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 text-white">Massive Savings</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                        Smart sensors ensure you only pay for the energy you actually use. <br><strong class="text-cyan-400">No wasted watts.</strong>
+                    <h3 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">Massive Savings</h3>
+                    <p class="leading-relaxed" style="color: var(--text-secondary);">
+                        Smart sensors ensure you only pay for the energy you actually use. <br><strong class="text-cyan-600">No wasted watts.</strong>
                     </p>
                 </div>
             </div>
@@ -592,33 +546,33 @@
             <div class="glass-ultra rounded-3xl p-12 md:p-20 reveal-up">
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div>
-                        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">The Science Behind <span class="text-gradient-animated">Efficiency</span></h2>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">The Science Behind <span class="text-gradient-animated">Efficiency</span></h2>
                         <div class="space-y-6">
                             <div class="flex items-start gap-4 stagger-item">
-                                <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 border border-blue-500/30">
-                                    <i class="fa-solid fa-microchip text-blue-400"></i>
+                                <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0 border border-blue-200 dark:border-blue-500/30">
+                                    <i class="fa-solid fa-microchip text-blue-600"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-white mb-2">Advanced Thermal Conductors</h4>
-                                    <p class="text-slate-300">Nano-engineered materials transfer heat at unprecedented speeds.</p>
+                                    <h4 class="font-bold mb-2" style="color: var(--text-primary);">Advanced Thermal Conductors</h4>
+                                    <p style="color: var(--text-secondary);">Nano-engineered materials transfer heat at unprecedented speeds.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4 stagger-item" style="animation-delay: 0.1s;">
-                                <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0 border border-purple-500/30">
-                                    <i class="fa-solid fa-brain text-purple-400"></i>
+                                <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0 border border-purple-200 dark:border-purple-500/30">
+                                    <i class="fa-solid fa-brain text-purple-600"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-white mb-2">AI-Powered Optimization</h4>
-                                    <p class="text-slate-300">Machine learning predicts your usage patterns for maximum efficiency.</p>
+                                    <h4 class="font-bold mb-2" style="color: var(--text-primary);">AI-Powered Optimization</h4>
+                                    <p style="color: var(--text-secondary);">Machine learning predicts your usage patterns for maximum efficiency.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4 stagger-item" style="animation-delay: 0.2s;">
-                                <div class="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0 border border-cyan-500/30">
-                                    <i class="fa-solid fa-shield-halved text-cyan-400"></i>
+                                <div class="w-12 h-12 rounded-full bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center flex-shrink-0 border border-cyan-200 dark:border-cyan-500/30">
+                                    <i class="fa-solid fa-shield-halved text-cyan-600"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-white mb-2">Safety First Design</h4>
-                                    <p class="text-slate-300">Multiple redundant systems ensure perfect safety in every scenario.</p>
+                                    <h4 class="font-bold mb-2" style="color: var(--text-primary);">Safety First Design</h4>
+                                    <p style="color: var(--text-secondary);">Multiple redundant systems ensure perfect safety in every scenario.</p>
                                 </div>
                             </div>
                         </div>
@@ -628,12 +582,12 @@
                         <div class="relative glass-card-ultra p-8 rounded-2xl">
                             <div class="text-center space-y-8">
                                 <div class="relative inline-block">
-                                    <div class="absolute inset-0 bg-blue-500 blur-2xl opacity-50 animate-pulse"></div>
-                                    <i class="fa-solid fa-fire-flame-curved text-8xl text-blue-400 relative z-10"></i>
+                                    <div class="absolute inset-0 bg-blue-500 blur-2xl opacity-30 animate-pulse"></div>
+                                    <i class="fa-solid fa-fire-flame-curved text-8xl text-blue-500 relative z-10"></i>
                                 </div>
                                 <div>
                                     <div class="text-6xl font-extrabold text-gradient-animated mb-2">99.9%</div>
-                                    <div class="text-slate-300">Energy Efficiency Rating</div>
+                                    <div style="color: var(--text-secondary);">Energy Efficiency Rating</div>
                                 </div>
                             </div>
                         </div>
@@ -643,40 +597,48 @@
         </div>
     </section>
 
-    <footer class="py-12 border-t border-white/10 bg-slate-900/30 backdrop-blur-md mt-12 relative z-10">
+    <footer class="py-12 border-t backdrop-blur-md mt-12 relative z-10" style="border-color: var(--glass-border); background: var(--glass-bg);">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-2 opacity-60">
                 <img src="./img/TEG_LogoOnly.png" alt="Logo" class="h-6">
-                <span class="font-bold text-sm text-slate-300">Thermal Electric Water</span>
+                <span class="font-bold text-sm" style="color: var(--text-secondary);">Thermal Electric Water</span>
             </div>
-            <p class="text-slate-400 text-sm">© 2026. Designed for the Future.</p>
+            <p class="text-sm" style="color: var(--text-secondary);">© 2026. Designed for the Future.</p>
         </div>
     </footer>
 
     <script>
-        // Custom Cursor
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            html.classList.add('dark-mode');
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark-mode');
+            const theme = html.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+
+        // Custom Cursor (small only)
         const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
 
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.clientX + 'px';
             cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
         });
 
         // Hover effect on interactive elements
-        document.querySelectorAll('a, button').forEach(el => {
+        document.querySelectorAll('a, button, .dark-mode-toggle').forEach(el => {
             el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'scale(1.5)';
-                cursorFollower.style.transform = 'scale(1.5)';
+                cursor.style.transform = 'scale(1.8)';
             });
             el.addEventListener('mouseleave', () => {
                 cursor.style.transform = 'scale(1)';
-                cursorFollower.style.transform = 'scale(1)';
             });
         });
 
@@ -688,13 +650,13 @@
             document.getElementById('progressBar').style.transform = `scaleX(${scrollPercentage / 100})`;
         });
 
-        // Generate Particles
+        // Generate Particles (reduced to 30 for performance)
         const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 30; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
             particle.style.animationDelay = Math.random() * 5 + 's';
             particlesContainer.appendChild(particle);
         }
@@ -732,7 +694,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('section').forEach(section => {
+        document.querySelectorAll('section, nav').forEach(section => {
             staggerObserver.observe(section);
         });
 
@@ -769,7 +731,7 @@
             counterObserver.observe(el);
         });
 
-        // 3D Tilt Effect
+        // 3D Tilt Effect (optimized)
         document.querySelectorAll('.tilt-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -779,8 +741,8 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
+                const rotateX = (y - centerY) / 15;
+                const rotateY = (centerX - x) / 15;
                 
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
             });
@@ -797,7 +759,7 @@
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
                 
-                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
+                btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) scale(1.05)`;
             });
             
             btn.addEventListener('mouseleave', () => {
@@ -809,11 +771,9 @@
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav > div');
             if (window.scrollY > 50) {
-                nav.style.background = 'rgba(15, 23, 42, 0.8)';
-                nav.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
+                nav.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.1)';
             } else {
-                nav.style.background = 'rgba(15, 23, 42, 0.4)';
-                nav.style.boxShadow = '0 8px 32px rgba(31, 38, 135, 0.2)';
+                nav.style.boxShadow = '0 8px 32px var(--card-shadow)';
             }
         });
 
